@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OutreachOps MVP</title>
+    <link rel="icon" href="./assets/outreachops_logo.svg" type="image/svg+xml">
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <img src="./assets/outreachops_logo.svg" alt="OutreachOps" class="logo" />
+      <div class="chips">
+        <span class="chip" id="roleChip">Public</span>
+        <span class="chip">7d</span>
+        <button id="refreshBtn" class="chip-btn">Refresh</button>
+      </div>
+    </header>
+
+    <div id="banner" class="banner hidden"></div>
+
+    <main id="dashboardScreen" class="screen active">
+      <section class="kpis">
+        <article><h3>Backlog</h3><p id="kpiBacklog">0</p></article>
+        <article><h3>Avg response time</h3><p id="kpiResponse">—</p></article>
+      </section>
+      <section id="map"></section>
+      <div class="fab-wrap">
+        <button id="openRequest" class="fab">+ Request</button>
+        <button id="openLog" class="fab secondary">Log</button>
+      </div>
+      <section class="sheet">
+        <div class="tabs">
+          <button data-tab="priority" class="tab active">Priority</button>
+          <button data-tab="resources" class="tab">Resources</button>
+          <button id="openSafety" class="tab">Safety</button>
+        </div>
+        <div id="priorityTab" class="tab-content active">
+          <small>Weighted aggregation demand using APG/CWS/NRGI (W=7d, k=10).</small>
+          <ul id="priorityList"></ul>
+        </div>
+        <div id="resourcesTab" class="tab-content">
+          <h4>Capacity override for selected grid</h4>
+          <p id="selectedGrid">No cell selected</p>
+          <label>Capacity (0..5)
+            <input id="capacityInput" type="number" min="0" max="5" step="0.1" value="1" />
+          </label>
+          <button id="saveCapacity">Save capacity</button>
+        </div>
+      </section>
+    </main>
+
+    <main id="requestScreen" class="screen">
+      <h2>Request</h2>
+      <div class="step">
+        <h3>1) Category</h3>
+        <div id="categoryButtons" class="category-grid"></div>
+      </div>
+      <div class="step">
+        <h3>2) Pick grid cell on map</h3>
+        <p id="requestGrid">No grid selected</p>
+      </div>
+      <div class="step">
+        <label><input id="requestSafety" type="checkbox"/> I confirm this request contains no tips for sustaining/evading homelessness.</label>
+      </div>
+      <div class="btn-row">
+        <button id="submitRequest">Submit</button>
+        <button id="cancelRequest">Cancel</button>
+      </div>
+    </main>
+
+    <main id="safetyScreen" class="screen">
+      <h2>Safety</h2>
+      <ul class="checklist">
+        <li>No pins, precise coordinates, photos, or paths are shown.</li>
+        <li>No law-enforcement or crackdown workflows exist.</li>
+        <li>No tips for sustaining/evading homelessness are allowed.</li>
+        <li>Data minimization: grid_id-only records; no personal identifiers.</li>
+        <li>Signals window is 7 days, with abuse prevention and anomaly penalty.</li>
+      </ul>
+      <button id="backDashboard">Back</button>
+    </main>
+
+    <dialog id="logModal">
+      <form method="dialog">
+        <h3>Outreach Log</h3>
+        <label>Grid
+          <input id="logGrid" required />
+        </label>
+        <label>Action
+          <input id="logAction" required value="visit" />
+        </label>
+        <label>Outcome
+          <input id="logOutcome" required value="engaged" />
+        </label>
+        <label><input id="logSafety" type="checkbox"/> I confirm no tips for sustaining/evading homelessness.</label>
+        <menu>
+          <button id="saveLog" value="default">Save</button>
+          <button value="cancel">Cancel</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
