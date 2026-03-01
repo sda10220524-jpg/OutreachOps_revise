@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" role="img" aria-label="OutreachOps logo">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="84" height="84" rx="16" fill="url(#g)"/>
+  <path d="M24 48h48M48 24v48" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+  <path d="M24 30h48M24 66h48" stroke="#dbeafe" stroke-width="3" stroke-linecap="round"/>
+  <text x="108" y="57" font-size="40" font-family="Inter, Arial, sans-serif" font-weight="700" fill="#0f172a">OutreachOps</text>
+</svg>
